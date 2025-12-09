@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mandeep Verma - Data Analyst Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #0D1B2A 0%, #1B263B 50%, #415A77 100%);
+            color: #FFFFFF;
+            overflow-x: hidden;
+            position: relative;
+            text-shadow: 0 0 5px rgba(255,255,255,0.5), 0 0 10px rgba(255,255,255,0.3);
+        }
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="1" fill="rgba(255,255,255,0.1)"/></svg>') repeat;
+            animation: float 20s linear infinite;
+            z-index: -1;
+        }
+        @keyframes float {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-100vh); }
+        }
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(13, 27, 42, 0.9);
+            backdrop-filter: blur(15px);
+            z-index: 1000;
+            padding: 15px 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+        nav a {
+            text-decoration: none;
+            color: #FFFFFF;
+            font-weight: 500;
+            padding: 12px 25px;
+            border-radius: 25px;
+            transition: all 0.4s ease;
+            font-family: 'Poppins', sans-serif;
+            text-shadow: 0 0 5px rgba(255,255,255,0.5);
+        }
+        nav a:hover {
+            background: linear-gradient(135deg, #1B263B, #415A77);
+            color: #FFFFFF;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+        section {
+            min-height: 100vh;
+            padding: 120px 20px 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transform: translateY(50px) scale(0.9);
+            transition: all 1.2s ease;
+            background: rgba(255, 255, 255, 0.1);
+            margin: 20px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            backdrop-filter: blur(10px);
+        }
+        section.visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+        #home {
+            background: url('https://via.placeholder.com/1920x1080/0D1B2A/FFFFFF?text=Data+Analytics+Background') no-repeat center/cover;
+            color: #FFFFFF;
+            text-align: center;
+            position: relative;
+        }
+        #home::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(13, 27, 42, 0.5);
+            border-radius: 20px;
+        }
+        #home .content {
+            position: relative;
+            z-index: 1;
+        }
+        #home h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 3.5em;
+            margin: 0;
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: 3px solid #FFFFFF;
+            animation: typing 3s steps(30, end), blink-caret 0.75s step-end infinite;
+            text-shadow: 0 0 10px rgba(255,255,255,0.8), 0 0 20px rgba(255,255,255,0.5);
+        }
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+        @keyframes blink-caret {
+            from, to { border-color: transparent; }
+            50% { border-color: #FFFFFF; }
+        }
+        #home p {
+            font-size: 1.5em;
+            animation: fadeInUp 2s ease 1s both;
+            text-shadow: 0 0 5px rgba(255,255,255,0.5);
+        }
+        .content {
+            max-width: 900px;
+            text-align: center;
+            padding: 20px;
+        }
+        .content h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #FFFFFF;
+            text-shadow: 0 0 10px rgba(255,255,255,0.8);
+        }
+        .skill-item {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+            animation: slideIn 1s ease both;
+        }
+        .skill-item i {
+            font-size: 2em;
+            margin-right: 20px;
+            color: #415A77;
+        }
+        .skill-bar {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            height: 25px;
+            margin: 10px 0;
+            overflow: hidden;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .skill-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #1B263B, #415A77);
+            width: 0;
+            animation: fill 2s ease forwards;
+            border-radius: 10px;
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes fill {
+            to { width: var(--width); }
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-width: 500px;
+            width: 100%;
+        }
+        input, textarea, button {
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    font-size: 2em;
+    transition: all 0.3s;
+    background: rgb(83 107 137 / 70%);
+    color: rgb(236 224 255);
+    /* text-shadow: 0 0 5px rgba(255, 255, 255, 0.5); */
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            box-shadow: 0 0 10px rgba(65, 90, 119, 0.5);
+        }
+        button {
+            background: linear-gradient(135deg, #1B263B, #415A77);
+            color: #FFFFFF;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        button:hover:not(:disabled) {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        ul li {
+            background: rgba(255, 255, 255, 0.1);
+            color: #FFFFFF;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            animation: fadeInUp 1s ease both;
+            text-shadow: 0 0 5px rgba(255,255,255,0.5);
+        }
+        /* Spinner Styles */
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(255, 255, 255, 0.2);
+            border-top: 5px solid #415A77;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#about">About Me</a>
+            <a href="#experience">Experience</a>
+            <a href="#education">Education</a>
+            <a href="#skills">Skills</a>
+            <a href="#contact">Contact Us</a>
+        </nav>
+    </header>
+
+    <section id="home" class="visible">
+        <div class="content">
+            <h1>Hi, I'm Mandeep Verma</h1>
+            <p>Data Analyst | Transforming Data into Insights</p>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="content">
+            <h2>About Me</h2>
+            <p>I'm a data analyst with 5+ years of experience in transforming raw data into actionable business insights. I specialize in Python, SQL, and visualization tools like Tableau and Power BI. When not analyzing data, I enjoy hiking and reading sci-fi novels.</p>
+        </div>
+    </section>
+
+    <section id="experience">
+        <div class="content">
+            <h2>Experience</h2>
+            <ul>
+                <li><strong>Data Analyst at TechCorp (2020-Present)</strong>: Led data projects resulting in 20% cost savings. Built dashboards for executive reporting.</li>
+                <li><strong>Junior Analyst at DataSolutions (2018-2020)</strong>: Conducted ETL processes and statistical analysis for client reports.</li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="education">
+        <div class="content">
+            <h2>Education</h2>
+            <p><strong>Master of Science in Data Science</strong>, University of Example, 2018</p>
+            <p><strong>Bachelor of Science in Statistics</strong>, State University, 2016</p>
+        </div>
+    </section>
+
+    <section id="skills">
+        <div class="content">
+            <h2>Skills</h2>
+            <div class="skill-item">
+                <i class="fab fa-python"></i>
+                <div style="flex: 1;">
+                    <p>Python</p>
+                    <div class="skill-bar"><div class="skill-fill" style="--width: 90%;"></div></div>
+                </div>
+            </div>
+            <div class="skill-item">
+                <i class="fas fa-database"></i>
+                <div style="flex: 1;">
+                    <p>SQL</p>
+                    <div class="skill-bar"><div class="skill-fill" style="--width: 85%;"></div></div>
+                </div>
+            </div>
+            <div class="skill-item">
+                <i class="fas fa-chart-line"></i>
+                <div style="flex: 1;">
+                    <p>Tableau</p>
+                    <div class="skill-bar"><div class="skill-fill" style="--width: 80%;"></div></div>
+                </div>
+            </div>
+            <div class="skill-item">
+                <i class="fas fa-brain"></i>
+                <div style="flex: 1;">
+                    <p>Machine Learning</p>
+                    <div class="skill-bar"><div class="skill-fill" style="--width: 75%;"></div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="content">
+            <h2>Contact Us</h2>
+            <form id="contactForm">
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="email" name="email" placeholder="Your Email" required>
+                <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+                <button type="submit" id="submitBtn">Send Message</button>
+            </form>
+            <!-- Loading Spinner -->
+            <div id="loadingSpinner" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10000;">
+                <div class="spinner"></div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const sections = document.querySelectorAll('section');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        sections.forEach(section => observer.observe(section));
+
+        // Handle contact form submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent default form submission
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const loadingSpinner = document.getElementById('loadingSpinner');
+            
+            // Show loading spinner and disable button
+            loadingSpinner.style.display = 'block';
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Sending...';
+            
+            const formData = new FormData(this);
+            const data = {
+                name: formData.get('name'),
+                email: formData.get('email'),
+                message: formData.get('message')
+            };
+            
+            fetch('https://script.google.com/macros/s/AKfycbxxY5p-QpNVyLY7D2QjxFVHongzs9li1aRsyy_z1GT8c-yiGnS2J6JVWdi89gnXVccpvQ/exec', {
+                method: 'POST',
+                body: new URLSearchParams(data),
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(result => {
+                // Hide loading spinner and re-enable button
+                loadingSpinner.style.display = 'none';
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Send Message';
+                
+                if (result.status === 'success') {
+                    alert('Message sent successfully!');
+                    document.getElementById('contactForm').reset(); // Clear the form
+                } else {
+                    alert('Failed to send message. Please try again.');
+                }
+            })
+            .catch(error => {
+                // Hide loading spinner and re-enable button on error
+                loadingSpinner.style.display = 'none';
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Send Message';
+                
+                console.error('Error:', error);
+                alert('Failed to send message. Please try again.');
+            });
+        });
+    </script>
+</body>
+</html>
