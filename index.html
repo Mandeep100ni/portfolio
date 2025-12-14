@@ -1,413 +1,892 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mandeep Verma - Data Analyst Portfolio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-            margin: 0;
-            padding: 0;
-            background: linear-gradient(135deg, #0D1B2A 0%, #1B263B 50%, #415A77 100%);
-            color: #FFFFFF;
-            overflow-x: hidden;
-            position: relative;
-            text-shadow: 0 0 5px rgba(255,255,255,0.5), 0 0 10px rgba(255,255,255,0.3);
-        }
-        body::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="1" fill="rgba(255,255,255,0.1)"/></svg>') repeat;
-            animation: float 20s linear infinite;
-            z-index: -1;
-        }
-        @keyframes float {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(-100vh); }
-        }
-        header {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(13, 27, 42, 0.9);
-            backdrop-filter: blur(15px);
-            z-index: 1000;
-            padding: 15px 0;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-        }
-        nav {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-        }
-        nav a {
-            text-decoration: none;
-            color: #FFFFFF;
-            font-weight: 500;
-            padding: 12px 25px;
-            border-radius: 25px;
-            transition: all 0.4s ease;
-            font-family: 'Poppins', sans-serif;
-            text-shadow: 0 0 5px rgba(255,255,255,0.5);
-        }
-        nav a:hover {
-            background: linear-gradient(135deg, #1B263B, #415A77);
-            color: #FFFFFF;
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-        }
-        section {
-            min-height: 100vh;
-            padding: 120px 20px 50px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            transform: translateY(50px) scale(0.9);
-            transition: all 1.2s ease;
-            background: rgba(255, 255, 255, 0.1);
-            margin: 20px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            backdrop-filter: blur(10px);
-        }
-        section.visible {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-        }
-        #home {
-            background: url('https://via.placeholder.com/1920x1080/0D1B2A/FFFFFF?text=Data+Analytics+Background') no-repeat center/cover;
-            color: #FFFFFF;
-            text-align: center;
-            position: relative;
-        }
-        #home::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(13, 27, 42, 0.5);
-            border-radius: 20px;
-        }
-        #home .content {
-            position: relative;
-            z-index: 1;
-        }
-        #home h1 {
-            font-family: 'Poppins', sans-serif;
-            font-size: 3.5em;
-            margin: 0;
-            overflow: hidden;
-            white-space: nowrap;
-            border-right: 3px solid #FFFFFF;
-            animation: typing 3s steps(30, end), blink-caret 0.75s step-end infinite;
-            text-shadow: 0 0 10px rgba(255,255,255,0.8), 0 0 20px rgba(255,255,255,0.5);
-        }
-        @keyframes typing {
-            from { width: 0; }
-            to { width: 100%; }
-        }
-        @keyframes blink-caret {
-            from, to { border-color: transparent; }
-            50% { border-color: #FFFFFF; }
-        }
-        #home p {
-            font-size: 2em;
-            animation: fadeInUp 2s ease 1s both;
-            text-shadow: 0 0 5px rgba(255,255,255,0.5);
-        }
-        .content {
-            max-width: 900px;
-            text-align: center;
-            padding: 20px;
-        }
-        .content h2 {
-            font-family: 'Poppins', sans-serif;
-            font-size: 2.5em;
-            margin-bottom: 20px;
-            color: #FFFFFF;
-            text-shadow: 0 0 10px rgba(255,255,255,0.8);
-        }
-        .skill-item {
-            display: flex;
-            align-items: center;
-            margin: 20px 0;
-            animation: slideIn 1s ease both;
-        }
-        .skill-item i {
-            font-size: 2em;
-            margin-right: 20px;
-            color: #415A77;
-        }
-        .skill-bar {
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
-            height: 25px;
-            margin: 10px 0;
-            overflow: hidden;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
-        }
-        .skill-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #1B263B, #415A77);
-            width: 0;
-            animation: fill 2s ease forwards;
-            border-radius: 10px;
-        }
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateX(-50px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-        @keyframes fill {
-            to { width: var(--width); }
-        }
-        form {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            max-width: 500px;
-            width: 100%;
-        }
-        input, textarea, button {
-    padding: 15px;
-    border: none;
-    border-radius: 10px;
-    font-size: 2em;
-    transition: all 0.3s;
-    background: rgb(83 107 137 / 70%);
-    color: rgb(236 224 255);
-    /* text-shadow: 0 0 5px rgba(255, 255, 255, 0.5); */
-        }
+<!doctype html>
+<html lang="en" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Analyst Portfolio</title>
+  <script src="/_sdk/element_sdk.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      box-sizing: border-box;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        input:focus, textarea:focus {
-            outline: none;
-            box-shadow: 0 0 10px rgba(65, 90, 119, 0.5);
-        }
-        button {
-            background: linear-gradient(135deg, #1B263B, #415A77);
-            color: #FFFFFF;
-            cursor: pointer;
-            font-weight: bold;
-        }
-        button:hover:not(:disabled) {
-            transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        }
-        button:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-        ul {
-            list-style: none;
-            padding: 0;
-        }
-        ul li {
-            background: rgba(255, 255, 255, 0.1);
-            color: #FFFFFF;
-            margin: 10px 0;
-            padding: 15px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            animation: fadeInUp 1s ease both;
-            text-shadow: 0 0 5px rgba(255,255,255,0.5);
-        }
-        /* Spinner Styles */
-        .spinner {
-            width: 50px;
-            height: 50px;
-            border: 5px solid rgba(255, 255, 255, 0.2);
-            border-top: 5px solid #415A77;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <nav>
-            <a href="#home">Home</a>
-            <a href="#about">About Me</a>
-            <a href="#experience">Experience</a>
-            <a href="#education">Education</a>
-            <a href="#skills">Skills</a>
-            <a href="#contact">Contact Us</a>
-        </nav>
-    </header>
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
 
-    <section id="home" class="visible">
-        <div class="content">
-            <h1>Hi, I'm Mandeep Verma</h1>
-            <p>Data Analyst | Transforming Data into Insights</p>
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateX(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0px);
+      }
+      50% {
+        transform: translateY(-20px);
+      }
+    }
+
+    .animate-fade-in-up {
+      animation: fadeInUp 0.8s ease-out forwards;
+    }
+
+    .animate-slide-in {
+      animation: slideIn 0.6s ease-out forwards;
+    }
+
+    .animate-float {
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+      animation: fadeInUp 0.5s ease-out;
+    }
+
+    .skill-bar {
+      height: 10px;
+      border-radius: 10px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .skill-fill {
+      height: 100%;
+      transition: width 1s ease-out;
+    }
+
+    .card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    }
+
+    .mobile-menu {
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+    }
+
+    .mobile-menu.active {
+      transform: translateX(0);
+    }
+
+    .menu-icon span {
+      display: block;
+      width: 25px;
+      height: 3px;
+      margin: 5px 0;
+      transition: 0.3s;
+    }
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full">
+  <div id="app-container" class="w-full h-full overflow-auto"><!-- Header -->
+   <header id="header" class="fixed top-0 left-0 right-0 z-50 shadow-lg">
+    <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+     <div class="flex justify-between items-center h-16">
+      <div id="logo" class="text-2xl font-bold"></div><!-- Desktop Navigation -->
+      <div id="desktop-nav" class="hidden md:flex space-x-8"><a href="#home" class="nav-link px-3 py-2 rounded-lg transition-colors" data-tab="home">Home</a> <a href="#about" class="nav-link px-3 py-2 rounded-lg transition-colors" data-tab="about">About Me</a> <a href="#education" class="nav-link px-3 py-2 rounded-lg transition-colors" data-tab="education">Education</a> <a href="#experience" class="nav-link px-3 py-2 rounded-lg transition-colors" data-tab="experience">Experience</a> <a href="#skills" class="nav-link px-3 py-2 rounded-lg transition-colors" data-tab="skills">Skills</a> <a href="#certificates" class="nav-link px-3 py-2 rounded-lg transition-colors" data-tab="certificates">Certificates</a> <a href="#tools" class="nav-link px-3 py-2 rounded-lg transition-colors" data-tab="tools">Tools</a> <a href="#contact" class="nav-link px-3 py-2 rounded-lg transition-colors" data-tab="contact">Contact</a>
+      </div><!-- Mobile Menu Button --> <button id="mobile-menu-btn" class="md:hidden menu-icon p-2"> <span id="menu-line-1"></span> <span id="menu-line-2"></span> <span id="menu-line-3"></span> </button>
+     </div>
+    </nav><!-- Mobile Menu -->
+    <div id="mobile-menu" class="mobile-menu fixed top-16 left-0 bottom-0 w-64 shadow-xl md:hidden overflow-y-auto">
+     <nav class="p-4 space-y-2"><a href="#home" class="mobile-nav-link block px-4 py-3 rounded-lg transition-colors" data-tab="home">Home</a> <a href="#about" class="mobile-nav-link block px-4 py-3 rounded-lg transition-colors" data-tab="about">About Me</a> <a href="#education" class="mobile-nav-link block px-4 py-3 rounded-lg transition-colors" data-tab="education">Education</a> <a href="#experience" class="mobile-nav-link block px-4 py-3 rounded-lg transition-colors" data-tab="experience">Experience</a> <a href="#skills" class="mobile-nav-link block px-4 py-3 rounded-lg transition-colors" data-tab="skills">Skills</a> <a href="#certificates" class="mobile-nav-link block px-4 py-3 rounded-lg transition-colors" data-tab="certificates">Certificates</a> <a href="#tools" class="mobile-nav-link block px-4 py-3 rounded-lg transition-colors" data-tab="tools">Tools</a> <a href="#contact" class="mobile-nav-link block px-4 py-3 rounded-lg transition-colors" data-tab="contact">Contact</a>
+     </nav>
+    </div>
+   </header><!-- Main Content -->
+   <main class="pt-16 w-full"><!-- Home Tab (Shows all sections) -->
+    <div id="home" class="tab-content active"><!-- Hero Section -->
+     <section id="hero-section" class="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8">
+      <div class="max-w-4xl mx-auto text-center">
+       <div class="animate-float mb-8">
+        <svg class="w-32 h-32 mx-auto" viewbox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="100" cy="100" r="80" fill="#3B82F6" opacity="0.2" /> <circle cx="100" cy="100" r="60" fill="#3B82F6" opacity="0.4" /> <circle cx="100" cy="100" r="40" fill="#3B82F6" /> <path d="M70 100 L85 115 L130 70" stroke="white" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+       </div>
+       <h1 id="hero-title" class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 animate-fade-in-up"></h1>
+       <p id="hero-subtitle" class="text-xl sm:text-2xl mb-8 animate-fade-in-up" style="animation-delay: 0.2s"></p><button id="cta-button" class="px-8 py-4 rounded-full text-lg font-semibold transition-all hover:shadow-xl animate-fade-in-up" style="animation-delay: 0.4s">View My Work</button>
+      </div>
+     </section><!-- About Section Preview -->
+     <section id="about-preview" class="py-20 px-4 sm:px-6 lg:px-8">
+      <div class="max-w-6xl mx-auto">
+       <h2 class="text-3xl sm:text-4xl font-bold text-center mb-12 animate-fade-in-up">About Me</h2>
+       <div class="card rounded-2xl shadow-lg p-8">
+        <p id="about-preview-text" class="text-lg leading-relaxed"></p>
+       </div>
+      </div>
+     </section><!-- Education Preview -->
+     <section id="education-preview" class="py-20 px-4 sm:px-6 lg:px-8">
+      <div class="max-w-6xl mx-auto">
+       <h2 class="text-3xl sm:text-4xl font-bold text-center mb-12">Education</h2>
+       <div class="grid md:grid-cols-2 gap-8">
+        <div class="card rounded-2xl shadow-lg p-6">
+         <div class="w-16 h-16 rounded-full flex items-center justify-center mb-4"><span class="text-3xl">🎓</span>
+         </div>
+         <h3 class="text-xl font-bold mb-2">Master's in Computer Application</h3>
+         <p class="mb-2">Indira Gandhi National Open University </p>
+         <p class="text-sm">• 2024-Pursuing</p>
         </div>
-    </section>
-
-    <section id="about">
-        <div class="content">
-            <h2>About Me</h2>
-            <p>Detail-oriented and highly skilled Data Analyst with experience in interpreting and analyzing data to drive successful business
-solutions. Expertise in data collection, cleaning, and visualization using tools such as Excel, Spreadsheets. Strong
-background in statistical analysis and data modeling, with a proven ability to identify trends, forecast outcomes, and provide
-actionable insights to enhance decision-making. Adept at working with large datasets and transforming complex information
-into clear, concise reports for cross-functional teams. Excellent problem-solving and communication skills with a passion for
-optimizing processes and improving business performance.</p>
+        <div class="card rounded-2xl shadow-lg p-6">
+         <div class="w-16 h-16 rounded-full flex items-center justify-center mb-4"><span class="text-3xl">🎓</span>
+         </div>
+         <h3 class="text-xl font-bold mb-2">Bachelor's in Commerce</h3>
+         <p class="mb-2">Indira Gandhi National Open University  </p>
+         <p class="text-sm">• 2019-2023</p>
         </div>
-    </section>
-
-    <section id="experience">
-        <div class="content">
-            <h2>Experience</h2>
-            <ul>
-                <li><strong>Data Analyst at TechCorp (2020-Present)</strong>: Led data projects resulting in 20% cost savings. Built dashboards for executive reporting.</li>
-                <li><strong>Junior Analyst at DataSolutions (2018-2020)</strong>: Conducted ETL processes and statistical analysis for client reports.</li>
-            </ul>
+       </div>
+      </div>
+     </section><!-- Skills Preview -->
+     <section id="skills-preview" class="py-20 px-4 sm:px-6 lg:px-8">
+      <div class="max-w-6xl mx-auto">
+       <h2 class="text-3xl sm:text-4xl font-bold text-center mb-12">Skills</h2>
+       <div class="grid md:grid-cols-2 gap-8">
+        <div class="card rounded-2xl shadow-lg p-6">
+         <h3 class="text-xl font-bold mb-6">Technical Skills</h3>
+         <div class="space-y-4">
+          <div>
+           <div class="flex justify-between mb-2"><span class="font-semibold">Java Script</span> <span>90%</span>
+           </div>
+           <div class="skill-bar" style="background-color: #e5e7eb">
+            <div class="skill-fill" style="width: 90%; background-color: #3B82F6"></div>
+           </div>
+          </div>
+          <div>
+           <div class="flex justify-between mb-2"><span class="font-semibold">HTML</span> <span>85%</span>
+           </div>
+           <div class="skill-bar" style="background-color: #e5e7eb">
+            <div class="skill-fill" style="width: 85%; background-color: #3B82F6"></div>
+           </div>
+          </div>
+          <div>
+           <div class="flex justify-between mb-2"><span class="font-semibold">Data Visualization</span> <span>88%</span>
+           </div>
+           <div class="skill-bar" style="background-color: #e5e7eb">
+            <div class="skill-fill" style="width: 88%; background-color: #3B82F6"></div>
+           </div>
+          </div>
+         </div>
         </div>
-    </section>
-
-    <section id="education">
-        <div class="content">
-            <h2>Education</h2>
-            <p><strong>Master of Science in Data Science</strong>, University of Example, 2018</p>
-            <p><strong>Bachelor of Science in Statistics</strong>, State University, 2016</p>
+        <div class="card rounded-2xl shadow-lg p-6">
+         <h3 class="text-xl font-bold mb-6">Soft Skills</h3>
+         <div class="space-y-4">
+          <div>
+           <div class="flex justify-between mb-2"><span class="font-semibold">Communication</span> <span>92%</span>
+           </div>
+           <div class="skill-bar" style="background-color: #e5e7eb">
+            <div class="skill-fill" style="width: 92%; background-color: #10B981"></div>
+           </div>
+          </div>
+          <div>
+           <div class="flex justify-between mb-2"><span class="font-semibold">Problem Solving</span> <span>90%</span>
+           </div>
+           <div class="skill-bar" style="background-color: #e5e7eb">
+            <div class="skill-fill" style="width: 90%; background-color: #10B981"></div>
+           </div>
+          </div>
+          <div>
+           <div class="flex justify-between mb-2"><span class="font-semibold">Team Collaboration</span> <span>87%</span>
+           </div>
+           <div class="skill-bar" style="background-color: #e5e7eb">
+            <div class="skill-fill" style="width: 87%; background-color: #10B981"></div>
+           </div>
+          </div>
+         </div>
         </div>
-    </section>
-
-    <section id="skills">
-        <div class="content">
-            <h2>Skills</h2>
-            <div class="skill-item">
-                <i class="fab fa-python"></i>
-                <div style="flex: 1;">
-                    <p>Python</p>
-                    <div class="skill-bar"><div class="skill-fill" style="--width: 90%;"></div></div>
-                </div>
+       </div>
+      </div>
+     </section><!-- Contact Preview -->
+     <section id="contact-preview" class="py-20 px-4 sm:px-6 lg:px-8">
+      <div class="max-w-4xl mx-auto text-center">
+       <h2 class="text-3xl sm:text-4xl font-bold mb-12">Get In Touch</h2>
+       <div class="card rounded-2xl shadow-lg p-8">
+        <p class="text-lg mb-8">Let's connect and discuss how I can help with your data analysis needs!</p>
+        <div class="flex flex-col sm:flex-row justify-center gap-6">
+         <div class="flex items-center justify-center gap-3"><span class="text-2xl">📧</span> <span id="contact-preview-email" class="font-semibold"></span>
+         </div>
+        </div>
+       </div>
+      </div>
+     </section>
+    </div><!-- About Tab -->
+    <div id="about" class="tab-content">
+     <section class="min-h-screen py-20 px-4 sm:px-6 lg:px-8">
+      <div class="max-w-6xl mx-auto">
+       <h2 id="about-tab-title" class="text-4xl font-bold text-center mb-12 animate-fade-in-up"></h2>
+       <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div class="animate-slide-in">
+         <svg class="w-full h-auto" viewbox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="200" cy="200" r="150" fill="#3B82F6" opacity="0.1" /> <circle cx="200" cy="180" r="60" fill="#3B82F6" /> <path d="M140 280 Q200 240 260 280 L260 320 Q200 360 140 320 Z" fill="#3B82F6" /> <circle cx="185" cy="170" r="8" fill="white" /> <circle cx="215" cy="170" r="8" fill="white" /> <path d="M185 195 Q200 205 215 195" stroke="white" stroke-width="4" stroke-linecap="round" fill="none" />
+         </svg>
+        </div>
+        <div class="animate-fade-in-up">
+         <p id="about-tab-text" class="text-lg leading-relaxed mb-6"></p>
+         <div class="grid grid-cols-2 gap-4 mt-8">
+          <div class="text-center p-4 rounded-lg" style="background-color: #EEF2FF">
+           <div class="text-3xl font-bold mb-2" style="color: #3B82F6">
+            5+
+           </div>
+           <div class="text-sm">
+            Years Experience
+           </div>
+          </div>
+          <div class="text-center p-4 rounded-lg" style="background-color: #DCFCE7">
+           <div class="text-3xl font-bold mb-2" style="color: #10B981">
+            50+
+           </div>
+           <div class="text-sm">
+            Projects Completed
+           </div>
+          </div>
+          <div class="text-center p-4 rounded-lg" style="background-color: #FEF3C7">
+           <div class="text-3xl font-bold mb-2" style="color:   #F59E0B">
+            30+
+           </div>
+           <div class="text-sm">
+            Happy Clients
+           </div>
+          </div>
+          <div class="text-center p-4 rounded-lg" style="background-color: #FCE7F3">
+           <div class="text-3xl font-bold mb-2" style="color: #EC4899">
+            5+
+           </div>
+           <div class="text-sm">
+            Certifications
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </section>
+    </div><!-- Education Tab -->
+    <div id="education" class="tab-content">
+     <section class="min-h-screen py-20 px-4 sm:px-6 lg:px-8">
+      <div class="max-w-6xl mx-auto">
+       <h2 class="text-4xl font-bold text-center mb-12 animate-fade-in-up">Education</h2>
+       <div class="space-y-8">
+        <div class="card rounded-2xl shadow-lg p-8 animate-slide-in">
+         <div class="flex flex-col md:flex-row gap-6">
+          <div class="w-20 h-20 rounded-full flex items-center justify-center flex-shrink-0" style="background-color: #EEF2FF"><span class="text-4xl">🎓</span>
+          </div>
+          <div class="flex-1">
+           <h3 class="text-2xl font-bold mb-2">Master's in Computer Application</h3>
+           <p class="text-lg mb-2" style="color: #6B7280">Indira Gandhi National Open University </p>
+           <p class="leading-relaxed">• 2024-Pursuing</p>
+          </div>
+         </div>
+        </div>
+        <div class="card rounded-2xl shadow-lg p-8 animate-slide-in" style="animation-delay: 0.1s">
+         <div class="flex flex-col md:flex-row gap-6">
+          <div class="w-20 h-20 rounded-full flex items-center justify-center flex-shrink-0" style="background-color: #DCFCE7"><span class="text-4xl">🎓</span>
+          </div>
+          <div class="flex-1">
+           <h3 class="text-2xl font-bold mb-2">Bachelor's in Commerce</h3>
+           <p class="text-lg mb-2" style="color: #6B7280">Indira Gandhi National Open University</p>
+           <p class="leading-relaxed">• 2019-2023</p>
+          </div>
+         </div>
+        </div>
+        <div class="card rounded-2xl shadow-lg p-8 animate-slide-in" style="animation-delay: 0.2s">
+         <div class="flex flex-col md:flex-row gap-6">
+          <div class="w-20 h-20 rounded-full flex items-center justify-center flex-shrink-0" style="background-color: #FEF3C7"><span class="text-4xl">📚</span>
+          </div>
+          <div class="flex-1">
+           <h3 class="text-2xl font-bold mb-2">Relevant Coursework</h3>
+           <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+            <div class="flex items-center gap-2"><span style="color: #3B82F6">✓</span> <span>React-JS</span>
             </div>
-            <div class="skill-item">
-                <i class="fas fa-database"></i>
-                <div style="flex: 1;">
-                    <p>SQL</p>
-                    <div class="skill-bar"><div class="skill-fill" style="--width: 85%;"></div></div>
-                </div>
+            <div class="flex items-center gap-2"><span style="color: #3B82F6">✓</span> <span>Front End Development</span>
             </div>
-            <div class="skill-item">
-                <i class="fas fa-chart-line"></i>
-                <div style="flex: 1;">
-                    <p>Tableau</p>
-                    <div class="skill-bar"><div class="skill-fill" style="--width: 80%;"></div></div>
-                </div>
+            <div class="flex items-center gap-2"><span style="color: #3B82F6">✓</span> <span>Introduction to Generative AI</span>
             </div>
-            <div class="skill-item">
-                <i class="fas fa-brain"></i>
-                <div style="flex: 1;">
-                    <p>Machine Learning</p>
-                    <div class="skill-bar"><div class="skill-fill" style="--width: 75%;"></div></div>
-                </div>
+            <div class="flex items-center gap-2"><span style="color: #3B82F6">✓</span> <span>Introduction to Python</span>
             </div>
+            <div class="flex items-center gap-2"><span style="color: #3B82F6">✓</span> <span>ITI [COPA]</span>
+            </div>
+            <div class="flex items-center gap-2"><span style="color: #3B82F6">✓</span> <span>ADCA</span>
+            </div>
+           </div>
+          </div>
+         </div>
         </div>
-    </section>
-
-    <section id="contact">
-        <div class="content">
-            <h2>Contact Us</h2>
-            <form id="contactForm">
-                <input type="text" name="name" placeholder="Your Name" required>
-                <input type="email" name="email" placeholder="Your Email" required>
-                <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
-                <button type="submit" id="submitBtn">Send Message</button>
-            </form>
-            <!-- Loading Spinner -->
-            <div id="loadingSpinner" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10000;">
-                <div class="spinner"></div>
-            </div>
+       </div>
+      </div>
+     </section>
+    </div><!-- Experience Tab -->
+    <div id="experience" class="tab-content">
+     <section class="min-h-screen py-20 px-4 sm:px-6 lg:px-8">
+      <div class="max-w-6xl mx-auto">
+       <h2 class="text-4xl font-bold text-center mb-12 animate-fade-in-up">Experience</h2>
+       <div class="space-y-8">
+        <div class="card rounded-2xl shadow-lg p-8 animate-slide-in">
+         <div class="flex flex-col md:flex-row gap-6">
+          <div class="w-20 h-20 rounded-full flex items-center justify-center flex-shrink-0" style="background-color: #EEF2FF"><span class="text-4xl">💼</span>
+          </div>
+          <div class="flex-1">
+           <h3 class="text-2xl font-bold mb-2">Data Entry Operator - [HR] &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; • 2024 - Present</h3>
+           <p class="text-lg mb-2" style="color: #6B7280"><strong>Shield Security Services Pvt. Ltd. </strong></p>
+           <ul class="list-disc list-inside space-y-2 leading-relaxed">
+           <li><strong>Internship Cell:</strong> Managed and supported the internship program, including recruitment, onboarding, and coordination of intern schedules.
+Provided administrative assistance to ensure smooth program execution and effective communication with department heads and interns.</li>
+<strong><li>Retirement Cell:</strong> Assisted in the administration of retirement benefits and documentation. Maintained accurate records of retiring
+employees and prepared necessary retirement certificates and benefit calculations. Ensured adherence to retirement policies and contributed to retirement planning discussions.</li>
+<strong><li>Finance Department: </strong>Processed and verified bills and invoices related to employee training programs, ensuring accuracy and compliance
+with internal financial policies.</li>
+<li><strong>Training Cell:</strong> Helped organize and coordinate employee training sessions, including logistics, scheduling, and material preparation.
+Assisted in tracking the effectiveness of training programs, ensuring proper feedback collection, and supporting continuous learning initiatives.</li>
+<li><strong>Vigilance Department:</strong> Supported the vigilance team in monitoring compliance and ensuring adherence to organizational policies.
+Assisted with audits, investigations, and reports related to workplace integrity, security, and safety protocols.</li>
+<li><strong>Apprenticeship Cell:</strong> Assisted in managing apprenticeship programs by tracking apprentice performance, scheduling training sessions,
+and maintaining communication between apprentices and mentors. Ensured compliance with apprenticeship regulations and programs.</li>
+<li><strong>General Coordination Department:</strong> Provided comprehensive administrative support across various departments. Managed scheduling,
+coordinated meetings, handled documentation, and facilitated inter-departmental communication. Supported project management and
+ensured all deadlines were met.</li>
+<li><strong>Miscellaneous: </strong>Data Compilation for Member HR Meeting, Compiled various data from All Sections, Managing the records of contractual
+Manpower Biometric Attendance, Designed the certificates for Interns and also for Retired Employees.</li>
+           </ul>
+          </div>
+         </div>
         </div>
-    </section>
+        <div class="card rounded-2xl shadow-lg p-8 animate-slide-in" style="animation-delay: 0.1s">
+         <div class="flex flex-col md:flex-row gap-6">
+          <div class="w-20 h-20 rounded-full flex items-center justify-center flex-shrink-0" style="background-color: #DCFCE7"><span class="text-4xl">📊</span>
+          </div>
+          <div class="flex-1">
+           <h3 class="text-2xl font-bold mb-2">Apprenticeship &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; • 2023 - 2024</h3>
+           <p class="text-lg mb-2" style="color: #6B7280"><strong> Authority of India</strong></p>
+           <ul class="list-disc list-inside space-y-2 leading-relaxed">
+            <li>Analyzed financial data.</li>
+            <li>Maintained data quality and integrity across systems.</li>
+           </ul>
+          </div>
+         </div>
+        </div>
+        <div class="card rounded-2xl shadow-lg p-8 animate-slide-in" style="animation-delay: 0.2s">
+         <div class="flex flex-col md:flex-row gap-6">
+          <div class="w-20 h-20 rounded-full flex items-center justify-center flex-shrink-0" style="background-color: #FEF3C7"><span class="text-4xl">🎯</span>
+          </div>
+          <div class="flex-1">
+           <h3 class="text-2xl font-bold mb-2">Front End Executive &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; • 2021 - 2022</h3>
+           <p class="text-lg mb-2" style="color: #6B7280"><strong>Rosewood Hospital</strong></p>
+           <ul class="list-disc list-inside space-y-2 leading-relaxed">
+            <li>Verified CGHS/DGEHS documents and ensured smooth admission and pre-authorization processes.</li>
+            <li>Maintained accurate panel patient records, followed up on claim status, and resolved discrepancies.</li>
+            <li>Managed Birth Certificate registration for newborns, coordinating with municipal authorities and ensuring timely document submission.</li>
+           </ul>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </section>
+    </div><!-- Skills Tab -->
+    <div id="skills" class="tab-content">
+     <section class="min-h-screen py-20 px-4 sm:px-6 lg:px-8">
+      <div class="max-w-6xl mx-auto">
+       <h2 class="text-4xl font-bold text-center mb-12 animate-fade-in-up">Skills &amp; Expertise</h2>
+       <div class="grid md:grid-cols-2 gap-8">
+        <div class="card rounded-2xl shadow-lg p-8 animate-slide-in">
+         <h3 class="text-2xl font-bold mb-6 flex items-center gap-3"><span>💻</span> Technical Skills</h3>
+         <div class="space-y-6">
+          <div>
+           <div class="flex justify-between mb-2"><span class="font-semibold">Java Script</span> <span class="font-bold" style="color: #3B82F6">90%</span>
+           </div>
+           <div class="skill-bar" style="background-color: #e5e7eb">
+            <div class="skill-fill" style="width: 90%; background-color: #3B82F6"></div>
+           </div>
+          </div>
+          <div>
+           <div class="flex justify-between mb-2"><span class="font-semibold">HTML</span> <span class="font-bold" style="color: #3B82F6">85%</span>
+           </div>
+           <div class="skill-bar" style="background-color: #e5e7eb">
+            <div class="skill-fill" style="width: 85%; background-color: #3B82F6"></div>
+           </div>
+          </div>
+          <div>
+           <div class="flex justify-between mb-2"><span class="font-semibold">CSS</span> <span class="font-bold" style="color: #3B82F6">88%</span>
+           </div>
+           <div class="skill-bar" style="background-color: #e5e7eb">
+            <div class="skill-fill" style="width: 88%; background-color: #3B82F6"></div>
+           </div>
+          </div>
+          <div>
+           <div class="flex justify-between mb-2"><span class="font-semibold">Data Visualization</span> <span class="font-bold" style="color: #3B82F6">82%</span>
+           </div>
+           <div class="skill-bar" style="background-color: #e5e7eb">
+            <div class="skill-fill" style="width: 82%; background-color: #3B82F6"></div>
+           </div>
+          </div>
+          <div>
+           <div class="flex justify-between mb-2"><span class="font-semibold">Statistical Analysis</span> <span class="font-bold" style="color: #3B82F6">87%</span>
+           </div>
+           <div class="skill-bar" style="background-color: #e5e7eb">
+            <div class="skill-fill" style="width: 87%; background-color: #3B82F6"></div>
+           </div>
+          </div>
+         </div>
+        </div>
+        <div class="card rounded-2xl shadow-lg p-8 animate-slide-in" style="animation-delay: 0.1s">
+         <h3 class="text-2xl font-bold mb-6 flex items-center gap-3"><span>🤝</span> Soft Skills</h3>
+         <div class="space-y-6">
+          <div>
+           <div class="flex justify-between mb-2"><span class="font-semibold">Communication</span> <span class="font-bold" style="color: #10B981">92%</span>
+           </div>
+           <div class="skill-bar" style="background-color: #e5e7eb">
+            <div class="skill-fill" style="width: 92%; background-color: #10B981"></div>
+           </div>
+          </div>
+          <div>
+           <div class="flex justify-between mb-2"><span class="font-semibold">Problem Solving</span> <span class="font-bold" style="color: #10B981">90%</span>
+           </div>
+           <div class="skill-bar" style="background-color: #e5e7eb">
+            <div class="skill-fill" style="width: 90%; background-color: #10B981"></div>
+           </div>
+          </div>
+          <div>
+           <div class="flex justify-between mb-2"><span class="font-semibold">Team Collaboration</span> <span class="font-bold" style="color: #10B981">87%</span>
+           </div>
+           <div class="skill-bar" style="background-color: #e5e7eb">
+            <div class="skill-fill" style="width: 87%; background-color: #10B981"></div>
+           </div>
+          </div>
+          <div>
+           <div class="flex justify-between mb-2"><span class="font-semibold">Critical Thinking</span> <span class="font-bold" style="color: #10B981">89%</span>
+           </div>
+           <div class="skill-bar" style="background-color: #e5e7eb">
+            <div class="skill-fill" style="width: 89%; background-color: #10B981"></div>
+           </div>
+          </div>
+          <div>
+           <div class="flex justify-between mb-2"><span class="font-semibold">Presentation</span> <span class="font-bold" style="color: #10B981">85%</span>
+           </div>
+           <div class="skill-bar" style="background-color: #e5e7eb">
+            <div class="skill-fill" style="width: 85%; background-color: #10B981"></div>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </section>
+    </div><!-- Certificates Tab -->
+    <div id="certificates" class="tab-content">
+     <section class="min-h-screen py-20 px-4 sm:px-6 lg:px-8">
+      <div class="max-w-6xl mx-auto">
+       <h2 class="text-4xl font-bold text-center mb-12 animate-fade-in-up">Certificates &amp; Achievements</h2>
+       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="card rounded-2xl shadow-lg p-6 text-center animate-fade-in-up">
+         <div class="w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-4" style="background-color: #EEF2FF"><span class="text-4xl">🏆</span>
+         </div>
+         <h3 class="text-xl font-bold mb-2">React-JS</h3>
+         <p style="color: #6B7280">NIELIT</p>
+         <p class="text-sm mt-2" style="color: #9CA3AF">2024</p>
+        </div>
+        <div class="card rounded-2xl shadow-lg p-6 text-center animate-fade-in-up" style="animation-delay: 0.1s">
+         <div class="w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-4" style="background-color: #DCFCE7"><span class="text-4xl">📜</span>
+         </div>
+         <h3 class="text-xl font-bold mb-2">Front End Development</h3>
+         <p style="color: #6B7280">NIELIT</p>
+         <p class="text-sm mt-2" style="color: #9CA3AF">2024</p>
+        </div>
+        <div class="card rounded-2xl shadow-lg p-6 text-center animate-fade-in-up" style="animation-delay: 0.2s">
+         <div class="w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-4" style="background-color: #FEF3C7"><span class="text-4xl">⭐</span>
+         </div>
+         <h3 class="text-xl font-bold mb-2">Introduction to Generative AI</h3>
+         <p style="color: #6B7280">NIELIT</p>
+         <p class="text-sm mt-2" style="color: #9CA3AF">2024</p>
+        </div>
+        <div class="card rounded-2xl shadow-lg p-6 text-center animate-fade-in-up" style="animation-delay: 0.3s">
+         <div class="w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-4" style="background-color: #FCE7F3"><span class="text-4xl">🎖️</span>
+         </div>
+         <h3 class="text-xl font-bold mb-2">Microsoft Power BI</h3>
+         <p style="color: #6B7280">Specialist Certification</p>
+         <p class="text-sm mt-2" style="color: #9CA3AF">2022</p>
+        </div>  
+        <div class="card rounded-2xl shadow-lg p-6 text-center animate-fade-in-up" style="animation-delay: 0.4s">
+         <div class="w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-4" style="background-color: #E0E7FF"><span class="text-4xl">💡</span>
+         </div>
+         <h3 class="text-xl font-bold mb-2">Introduction to Python</h3>
+         <p style="color: #6B7280">NIELIT</p>
+         <p class="text-sm mt-2" style="color: #9CA3AF">2024</p>
+        </div>
+        <div class="card rounded-2xl shadow-lg p-6 text-center animate-fade-in-up" style="animation-delay: 0.5s">
+         <div class="w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-4" style="background-color: #FEE2E2"><span class="text-4xl">🎓</span>
+         </div>
+         <h3 class="text-xl font-bold mb-2">CCC</h3>
+         <p style="color: #6B7280">NIELIT</p>
+         <p class="text-sm mt-2" style="color: #9CA3AF">2024</p>
+        </div>
+       </div>
+      </div>
+     </section>
+    </div><!-- Tools Tab -->
+    <div id="tools" class="tab-content">
+     <section class="min-h-screen py-20 px-4 sm:px-6 lg:px-8">
+      <div class="max-w-6xl mx-auto">
+       <h2 class="text-4xl font-bold text-center mb-12 animate-fade-in-up">Tools &amp; Technologies</h2>
+       <div class="grid md:grid-cols-3 gap-8">
+        <div class="card rounded-2xl shadow-lg p-6 animate-fade-in-up">
+         <h3 class="text-xl font-bold mb-6 text-center">Microsoft Office</h3>
+         <div class="space-y-4">
+          <div class="flex items-center gap-3 p-3 rounded-lg" style="background-color: #F3F4F6"><span class="text-2xl">📈</span> <span class="font-semibold">Excel</span>
+          </div>
+          <div class="flex items-center gap-3 p-3 rounded-lg" style="background-color: #F3F4F6"><span class="text-2xl">📋</span> <span class="font-semibold">Word</span>
+          </div>
+          <div class="flex items-center gap-3 p-3 rounded-lg" style="background-color: #F3F4F6"><span class="text-2xl">🖥️</span> <span class="font-semibold">Powerpoint</span>
+          </div>
+          <div class="flex items-center gap-3 p-3 rounded-lg" style="background-color: #F3F4F6"><span class="text-2xl">📊</span> <span class="font-semibold">Power BI</span>
+          </div>
+          <div class="flex items-center gap-3 p-3 rounded-lg" style="background-color: #F3F4F6"><span class="text-2xl">🖼️</span> <span class="font-semibold">Paint</span>
+          </div>
+          </div>
+        </div>
+        <div class="card rounded-2xl shadow-lg p-6 animate-fade-in-up" style="animation-delay: 0.1s">
+         <h3 class="text-xl font-bold mb-6 text-center">Google Suite</h3>
+         <div class="space-y-4">
+          <div class="flex items-center gap-3 p-3 rounded-lg" style="background-color: #F3F4F6"><span class="text-2xl">📊</span> <span class="font-semibold">Spreadsheet</span>
+          </div>
+          <div class="flex items-center gap-3 p-3 rounded-lg" style="background-color: #F3F4F6"><span class="text-2xl">📈</span> <span class="font-semibold">Power BI</span>
+          </div>
+          <div class="flex items-center gap-3 p-3 rounded-lg" style="background-color: #F3F4F6"><span class="text-2xl">📋</span> <span class="font-semibold">Word</span>
+          </div>
+          <div class="flex items-center gap-3 p-3 rounded-lg" style="background-color: #F3F4F6"><span class="text-2xl">🖥️</span> <span class="font-semibold">Slides</span>
+          </div>
+          <div class="flex items-center gap-3 p-3 rounded-lg" style="background-color: #F3F4F6"><span class="text-2xl">📑</span> <span class="font-semibold">Forms</span>
+          </div>
+         </div>
+        </div>
+        <div class="card rounded-2xl shadow-lg p-6 animate-fade-in-up" style="animation-delay: 0.2s">
+         <h3 class="text-xl font-bold mb-6 text-center">Others</h3>
+         <div class="space-y-4">
+          <div class="flex items-center gap-3 p-3 rounded-lg" style="background-color: #F3F4F6"><span class="text-2xl">#️⃣</span> <span class="font-semibold">Visual Studio</span>
+          </div>
+          <div class="flex items-center gap-3 p-3 rounded-lg" style="background-color: #F3F4F6"><span class="text-2xl">𝓒</span> <span class="font-semibold">Canva Pro</span>
+          </div>
+          <div class="flex items-center gap-3 p-3 rounded-lg" style="background-color: #F3F4F6"><span class="text-2xl">📧</span> <span class="font-semibold">Outlook</span>
+          </div>
+          <div class="flex items-center gap-3 p-3 rounded-lg" style="background-color: #F3F4F6"><span class="text-2xl">🏢</span> <span class="font-semibold">E-office</span>
+          </div>
+          <div class="flex items-center gap-3 p-3 rounded-lg" style="background-color: #F3F4F6"><span class="text-2xl">👨🏻‍💻</span> <span class="font-semibold">SAP</span>
+          </div>
+          <div class="flex items-center gap-3 p-3 rounded-lg" style="background-color: #F3F4F6"><span class="text-2xl">🎫✈️</span> <span class="font-semibold">AIMS (Airplane Information Management System)</span>
+          </div>
+         </div>
+        </div>
+        
+        <div class="card rounded-2xl shadow-lg p-6 animate-fade-in-up" style="animation-delay: 0.2s">
+         <h3 class="text-xl font-bold mb-6 text-center">Artificial Intelligence (AI)</h3>
+         <div class="space-y-4">
+          <div class="flex items-center gap-3 p-3 rounded-lg" style="background-color: #F3F4F6"><span class="text-2xl">🔳</span> <span class="font-semibold">Blackbox AI</span>
+          </div>
+          <div class="flex items-center gap-3 p-3 rounded-lg" style="background-color: #F3F4F6"><span class="text-2xl">𝓒</span> <span class="font-semibold">Canva AI</span>
+          </div>
+          <div class="flex items-center gap-3 p-3 rounded-lg" style="background-color: #F3F4F6"><span class="text-2xl">֎</span> <span class="font-semibold">ChatGPT</span>
+          </div>
+          <div class="flex items-center gap-3 p-3 rounded-lg" style="background-color: #F3F4F6"><span class="text-2xl">⚛️</span> <span class="font-semibold">Perplexity</span>
+          </div>
+          <div class="flex items-center gap-3 p-3 rounded-lg" style="background-color: #F3F4F6"><span class="text-2xl">🇬</span> <span class="font-semibold">Gemini</span>
+          </div>
+          <div class="flex items-center gap-3 p-3 rounded-lg" style="background-color: #F3F4F6"><span class="text-2xl">𝓛𝓮𝓸</span> <span class="font-semibold">Leonardo.AI</span>
+          </div>
+         </div>
+        </div>
+     </section>
+    </div><!-- Contact Tab -->
+    <div id="contact" class="tab-content">
+     <section class="min-h-screen py-20 px-4 sm:px-6 lg:px-8 flex items-center">
+      <div class="max-w-4xl mx-auto w-full">
+       <h2 class="text-4xl font-bold text-center mb-12 animate-fade-in-up">Get In Touch</h2>
+       <div class="card rounded-2xl shadow-lg p-8 md:p-12 animate-fade-in-up">
+        <p class="text-xl text-center mb-12 leading-relaxed">I'm always interested in hearing about new opportunities, collaborations, or just connecting with fellow data enthusiasts. Let's start a conversation!</p>
+        <div class="grid md:grid-cols-1 gap-8 mb-12">
+         <div class="flex items-center gap-4 p-6 rounded-xl" style="background-color: #F3F4F6">
+          <div class="w-16 h-16 rounded-full flex items-center justify-center flex-shrink-0" style="background-color: #EEF2FF"><span class="text-3xl">📧</span>
+          </div>
+          <div>
+           <h3 text-align="center" class="font-bold mb-1">Email</h3><a id="contact-email-link" class="hover:underline" style="color: #3B82F6"></a>
+          </div>
+        
+          </div>
+        </div>
+        <div class="flex flex-wrap justify-center gap-4"><a href="https://www.linkedin.com/in/mandeep-verma-a55706375/?trk=public-profile-join-page" target="_blank" rel="noopener noreferrer" class="px-6 py-3 rounded-full font-semibold transition-all hover:shadow-lg" style="background-color: #3B82F6; color: white"> LinkedIn </a> <a href="https://github.com/Mandeep100ni" target="_blank" rel="noopener noreferrer" class="px-6 py-3 rounded-full font-semibold transition-all hover:shadow-lg" style="background-color: #1F2937; color: white"> GitHub </a> <a href="https://mail.google.com/mail/u/0/?tab=rm&ogbl#inbox?compose=CllgCKCGDckpfbWqnLJrXkSfKLjzRSTtwpZGWnrGPsFWhttNJpdcBgrknpbcpVCvJmJPQBtlgtL" target="_blank" rel="noopener noreferrer" class="px-6 py-3 rounded-full font-semibold transition-all hover:shadow-lg" style="background-color: #10B981; color: white"> E-mail </a>
+        </div>
+       </div>
+      </div>
+     </section>
+    </div>
+   </main>
+  </div>
+  <script>
+    const defaultConfig = {
+      background_color: "#FFF5F0",
+      header_color: "#412323",
+      text_color: "#2D3748",
+      primary_action_color: "#4ECDC4",
+      secondary_surface_color: "#FFFFFF",
+      font_family: "system-ui",
+      font_size: 16,
+      site_title: "Mandeep Verma",
+      tagline: "Data Analyst",
+      hero_title: "Hi, I'm Mandeep Verma",
+      hero_subtitle: "Data Analyst | Transforming Data into Insights",
+      about_title: "About Me",
+      about_text: "Detail-oriented and highly skilled Data Analyst with experience in interpreting and analyzing data to drive successful business solutions. Expertise in data collection, cleaning, and visualization using tools such as Excel, Spreadsheets. Strong background in statistical analysis and data modeling, with a proven ability to identify trends, forecast outcomes, and provide actionable insights to enhance decision-making. Adept at working with large datasets and transforming complex information into clear, concise reports for cross-functional teams. Excellent problem-solving and communication skills with a passion for optimizing processes and improving business performance. ",
+      contact_email: "mandeep100ni858[at]gmail[dot]com",
+    };
 
-    <script>
-        const sections = document.querySelectorAll('section');
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, { threshold: 0.1 });
+    async function onConfigChange(config) {
+      const backgroundColor = config.background_color || defaultConfig.background_color;
+      const headerColor = config.header_color || defaultConfig.header_color;
+      const textColor = config.text_color || defaultConfig.text_color;
+      const primaryActionColor = config.primary_action_color || defaultConfig.primary_action_color;
+      const secondarySurfaceColor = config.secondary_surface_color || defaultConfig.secondary_surface_color;
+      const fontFamily = config.font_family || defaultConfig.font_family;
+      const baseFontSize = config.font_size || defaultConfig.font_size;
 
-        sections.forEach(section => observer.observe(section));
+      const siteTitle = config.site_title || defaultConfig.site_title;
+      const tagline = config.tagline || defaultConfig.tagline;
+      const heroTitle = config.hero_title || defaultConfig.hero_title;
+      const heroSubtitle = config.hero_subtitle || defaultConfig.hero_subtitle;
+      const aboutTitle = config.about_title || defaultConfig.about_title;
+      const aboutText = config.about_text || defaultConfig.about_text;
+      const contactEmail = config.contact_email || defaultConfig.contact_email;
 
-        // Handle contact form submission
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault(); // Prevent default form submission
-            
-            const submitBtn = document.getElementById('submitBtn');
-            const loadingSpinner = document.getElementById('loadingSpinner');
-            
-            // Show loading spinner and disable button
-            loadingSpinner.style.display = 'block';
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Sending...';
-            
-            const formData = new FormData(this);
-            const data = {
-                name: formData.get('name'),
-                email: formData.get('email'),
-                message: formData.get('message')
-            };
-            
-            fetch('https://script.google.com/macros/s/AKfycbxxY5p-QpNVyLY7D2QjxFVHongzs9li1aRsyy_z1GT8c-yiGnS2J6JVWdi89gnXVccpvQ/exec', {
-                method: 'POST',
-                body: new URLSearchParams(data),
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                }
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(result => {
-                // Hide loading spinner and re-enable button
-                loadingSpinner.style.display = 'none';
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'Send Message';
-                
-                if (result.status === 'success') {
-                    alert('Message sent successfully!');
-                    document.getElementById('contactForm').reset(); // Clear the form
-                } else {
-                    alert('Failed to send message. Please try again.');
-                }
-            })
-            .catch(error => {
-                // Hide loading spinner and re-enable button on error
-                loadingSpinner.style.display = 'none';
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'Send Message';
-                
-                console.error('Error:', error);
-                alert('Failed to send message. Please try again.');
-            });
+      document.getElementById('app-container').style.backgroundColor = backgroundColor;
+      document.getElementById('app-container').style.color = textColor;
+      document.getElementById('app-container').style.fontFamily = `${fontFamily}, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif`;
+      document.getElementById('app-container').style.fontSize = `${baseFontSize}px`;
+
+      document.getElementById('header').style.backgroundColor = headerColor;
+      document.getElementById('header').style.color = secondarySurfaceColor;
+
+      document.getElementById('logo').textContent = siteTitle;
+      document.getElementById('logo').style.fontSize = `${baseFontSize * 1.5}px`;
+      
+      const taglineElement = document.querySelector('#logo + div') || document.createElement('div');
+      if (!taglineElement.parentNode) {
+        taglineElement.className = 'text-sm';
+        document.getElementById('logo').appendChild(taglineElement);
+      }
+
+      const navLinks = document.querySelectorAll('.nav-link, .mobile-nav-link');
+      navLinks.forEach(link => {
+        link.style.color = secondarySurfaceColor;
+        link.style.fontSize = `${baseFontSize}px`;
+        link.addEventListener('mouseenter', () => {
+          link.style.backgroundColor = primaryActionColor;
         });
-    </script>
-</body>
+        link.addEventListener('mouseleave', () => {
+          link.style.backgroundColor = 'transparent';
+        });
+      });
 
+      const menuLines = [
+        document.getElementById('menu-line-1'),
+        document.getElementById('menu-line-2'),
+        document.getElementById('menu-line-3')
+      ];
+      menuLines.forEach(line => {
+        line.style.backgroundColor = secondarySurfaceColor;
+      });
+
+      document.getElementById('mobile-menu').style.backgroundColor = headerColor;
+
+      document.getElementById('hero-section').style.backgroundColor = backgroundColor;
+      document.getElementById('hero-title').textContent = heroTitle;
+      document.getElementById('hero-title').style.color = textColor;
+      document.getElementById('hero-title').style.fontSize = `${baseFontSize * 3}px`;
+      
+      document.getElementById('hero-subtitle').textContent = heroSubtitle;
+      document.getElementById('hero-subtitle').style.color = textColor;
+      document.getElementById('hero-subtitle').style.fontSize = `${baseFontSize * 1.25}px`;
+
+      const ctaButton = document.getElementById('cta-button');
+      ctaButton.style.backgroundColor = primaryActionColor;
+      ctaButton.style.color = secondarySurfaceColor;
+      ctaButton.style.fontSize = `${baseFontSize * 1.125}px`;
+
+      const sections = ['about-preview', 'education-preview', 'skills-preview', 'contact-preview'];
+      sections.forEach(section => {
+        const element = document.getElementById(section);
+        if (element) {
+          element.style.backgroundColor = backgroundColor;
+        }
+      });
+
+      const allH2 = document.querySelectorAll('h2');
+      allH2.forEach(h2 => {
+        h2.style.color = textColor;
+        h2.style.fontSize = `${baseFontSize * 2}px`;
+      });
+
+      const allH3 = document.querySelectorAll('h3');
+      allH3.forEach(h3 => {
+        h3.style.color = textColor;
+        h3.style.fontSize = `${baseFontSize * 1.25}px`;
+      });
+
+      const allP = document.querySelectorAll('p');
+      allP.forEach(p => {
+        p.style.color = textColor;
+        p.style.fontSize = `${baseFontSize}px`;
+      });
+
+      const cards = document.querySelectorAll('.card');
+      cards.forEach(card => {
+        card.style.backgroundColor = secondarySurfaceColor;
+        card.style.color = textColor;
+      });
+
+      document.getElementById('about-preview-text').textContent = aboutText;
+      document.getElementById('about-tab-title').textContent = aboutTitle;
+      document.getElementById('about-tab-text').textContent = aboutText;
+
+      document.getElementById('contact-preview-email').textContent = contactEmail;
+
+      
+      const emailLink = document.getElementById('contact-email-link');
+      emailLink.textContent = contactEmail;
+      emailLink.href = `mailto:${contactEmail}`;
+      emailLink.style.color = primaryActionColor;
+      
+    }
+
+    function initializeApp() {
+      const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const allNavLinks = document.querySelectorAll('.nav-link, .mobile-nav-link');
+      const tabContents = document.querySelectorAll('.tab-content');
+      const ctaButton = document.getElementById('cta-button');
+
+      mobileMenuBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('active');
+      });
+
+      function switchTab(tabId) {
+        tabContents.forEach(tab => tab.classList.remove('active'));
+        const targetTab = document.getElementById(tabId);
+        if (targetTab) {
+          targetTab.classList.add('active');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        mobileMenu.classList.remove('active');
+      }
+
+      allNavLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          const tabId = link.getAttribute('data-tab');
+          switchTab(tabId);
+        });
+      });
+
+      ctaButton.addEventListener('click', () => {
+        switchTab('about');
+      });
+
+      onConfigChange(window.elementSdk?.config || defaultConfig);
+    }
+
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange,
+        mapToCapabilities: (config) => ({
+          recolorables: [
+            {
+              get: () => config.background_color || defaultConfig.background_color,
+              set: (value) => {
+                config.background_color = value;
+                window.elementSdk.setConfig({ background_color: value });
+              }
+            },
+            {
+              get: () => config.secondary_surface_color || defaultConfig.secondary_surface_color,
+              set: (value) => {
+                config.secondary_surface_color = value;
+                window.elementSdk.setConfig({ secondary_surface_color: value });
+              }
+            },
+            {
+              get: () => config.text_color || defaultConfig.text_color,
+              set: (value) => {
+                config.text_color = value;
+                window.elementSdk.setConfig({ text_color: value });
+              }
+            },
+            {
+              get: () => config.primary_action_color || defaultConfig.primary_action_color,
+              set: (value) => {
+                config.primary_action_color = value;
+                window.elementSdk.setConfig({ primary_action_color: value });
+              }
+            },
+            {
+              get: () => config.header_color || defaultConfig.header_color,
+              set: (value) => {
+                config.header_color = value;
+                window.elementSdk.setConfig({ header_color: value });
+              }
+            }
+          ],
+          borderables: [],
+          fontEditable: {
+            get: () => config.font_family || defaultConfig.font_family,
+            set: (value) => {
+              config.font_family = value;
+              window.elementSdk.setConfig({ font_family: value });
+            }
+          },
+          fontSizeable: {
+            get: () => config.font_size || defaultConfig.font_size,
+            set: (value) => {
+              config.font_size = value;
+              window.elementSdk.setConfig({ font_size: value });
+            }
+          }
+        }),
+        mapToEditPanelValues: (config) => new Map([
+          ["site_title", config.site_title || defaultConfig.site_title],
+          ["tagline", config.tagline || defaultConfig.tagline],
+          ["hero_title", config.hero_title || defaultConfig.hero_title],
+          ["hero_subtitle", config.hero_subtitle || defaultConfig.hero_subtitle],
+          ["about_title", config.about_title || defaultConfig.about_title],
+          ["about_text", config.about_text || defaultConfig.about_text],
+          ["contact_email", config.contact_email || defaultConfig.contact_email],
+        ])
+      });
+    }
+
+    initializeApp();
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9ade478305ed5520',t:'MTc2NTcyMTM3MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
-
